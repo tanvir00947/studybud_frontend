@@ -1,7 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { useSearch } from '../context/SearchContext';
+
 
 const Topics = ({ topics }) => {
+
+  const { searchQuery, updateSearchQuery } = useSearch();
+
   // Check if topics is defined before accessing its properties
   if (!topics) {
     // You can choose to render a loading indicator or a message here
@@ -14,14 +19,14 @@ const Topics = ({ topics }) => {
         <h2>Browse Topics</h2>
       </div>
       <ul className="topics__list">
-        <li>
-          <a href="/" className="active">
+        <li onClick={() => updateSearchQuery('')}>
+          <a  className="active">
             All <span>{topics.length}</span>
           </a>
         </li>
         {topics.map((topic) => (
-          <li key={topic.id}>
-            <a href='/'>{topic.name} <span>{topic.num_rooms}</span></a>
+          <li key={topic.id} onClick={() => updateSearchQuery(topic.name)}>
+            <a >{topic.name} <span>{topic.num_rooms}</span></a>
           </li>
         ))}
       </ul>

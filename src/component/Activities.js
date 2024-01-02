@@ -2,6 +2,7 @@ import React, { useEffect, useState,useContext } from 'react';
 import { formatDistanceToNow } from 'date-fns';
 import { Link } from 'react-router-dom';
 import AuthContext from '../context/AuthContext';
+import avatarImage from '../images/avatar.svg'
 
 const Activities = ({messagesData}) => {
 
@@ -63,7 +64,7 @@ const Activities = ({messagesData}) => {
             <div className="activities__boxHeader roomListRoom__header">
               <Link to={`/user-profile/${message.user}`} className="roomListRoom__author">
                 <div className="avatar avatar--small">
-                  <img src="https://randomuser.me/api/portraits/women/11.jpg" alt="User Avatar" />
+                  <img src={avatarImage} alt="User Avatar" />
                 </div>
                 <p>
                   @{user_username}

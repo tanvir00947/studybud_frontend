@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import avatarImage from '../images/avatar.svg'
 
 const RoomParticipants = ({participantsData}) => {
   
@@ -15,7 +16,7 @@ const RoomParticipants = ({participantsData}) => {
       {participantsData.map((participant) => (
         <Link key={participant.id}  to={`/user-profile/${participant.id}`} className="participant">
           <div className="avatar avatar--medium">
-            <img src="https://randomuser.me/api/portraits/men/37.jpg" alt="Participant 1" />
+            <img src={avatarImage} alt="Participant 1" />
           </div>
           <p>
             {participant.name}

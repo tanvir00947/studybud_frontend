@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { formatDistanceToNow } from 'date-fns';
 import { Link } from 'react-router-dom';
 import JustTopicName from './JustTopicName';
+import avatarImage from '../images/avatar.svg'
 //jsljf dfslf sldfj kkldjf  lkdkfj
 const ProfileRoomList = ({userData}) => {
 
@@ -54,7 +55,7 @@ const ProfileRoomList = ({userData}) => {
                 <div className="roomListRoom__header">
                 <Link to={`/user-profile/${userData.user.id}`} className="roomListRoom__author">
                     <div className="avatar avatar--small">
-                    <img src="https://randomuser.me/api/portraits/women/11.jpg" alt="User" />
+                    <img src={avatarImage} alt="User" />
                     </div>
                     <span>@{userData.user.username} </span>
                 </Link>

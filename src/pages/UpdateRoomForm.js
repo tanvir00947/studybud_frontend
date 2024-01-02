@@ -17,7 +17,7 @@ const UpdateRoom = () => {
 
   const fetchRoomDetails = async () => {
     try {
-      const response = await fetch(`http://127.0.0.1:8000/api/update-roomAPI/${roomId}/`, {
+      const response = await fetch(`https://tanvirpythonanywhere.pythonanywhere.com/api/update-roomAPI/${roomId}/`, {
         headers: {
           Authorization: `Bearer ${authTokens.access}`,
         },
@@ -50,7 +50,7 @@ const UpdateRoom = () => {
     e.preventDefault();
 
     try {
-      const response = await fetch(`http://127.0.0.1:8000/api/update-roomAPI/${roomId}/`, {
+      const response = await fetch(`https://tanvirpythonanywhere.pythonanywhere.com/api/update-roomAPI/${roomId}/`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -75,13 +75,11 @@ const UpdateRoom = () => {
     }
   };
 
-  const isHost = user && roomData.host === user.user_id;
-
+  
   return (
     <main className="update-room layout">
 
-        {isHost ? (
-            <>
+      
             <div className="container">
                 <div className="layout__box">
                 <div className="layout__boxHeader">
@@ -137,14 +135,10 @@ const UpdateRoom = () => {
                 </div>
                 </div>
             </div>
-            </>
-        ):(
             
-            <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
-                
-                <h1>You are not Allowed Here!!!</h1>
-            </div>
-        ) }
+        
+            
+            
       
     </main>
   );

@@ -13,9 +13,9 @@ const JustTopicName = ({ topicId, topics }) => {
   }
 
   return (
-    <div>
+    <>
       {topic.name}
-    </div>
+    </>
   );
 };
 

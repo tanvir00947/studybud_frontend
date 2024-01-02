@@ -19,7 +19,7 @@ const UpdateUserProfile = () => {
   const fetchUserDetails = async () => {
     try {
       // Fetch user details using the user ID
-      const response = await fetch('http://127.0.0.1:8000/api/update-user-profileAPI/', {
+      const response = await fetch('https://tanvirpythonanywhere.pythonanywhere.com/api/update-user-profileAPI/', {
         method: 'GET',
         headers: {
           // Include your authentication token here if needed
@@ -58,7 +58,7 @@ const UpdateUserProfile = () => {
 
     try {
       // Send a PUT request to update the user profile
-      const response = await fetch('http://127.0.0.1:8000/api/update-user-profileAPI/', {
+      const response = await fetch('https://tanvirpythonanywhere.pythonanywhere.com/api/update-user-profileAPI/', {
         method: 'PUT',
         headers: {
           // Include your authentication token here if needed
@@ -87,7 +87,7 @@ const UpdateUserProfile = () => {
         <div className="layout__box">
           <div className="layout__boxHeader">
             <div className="layout__boxTitle">
-              <Link to="/profile">
+              <Link to="/">
                 <svg
                   version="1.1"
                   xmlns="http://www.w3.org/2000/svg"
@@ -153,7 +153,7 @@ const UpdateUserProfile = () => {
                 ></textarea>
               </div>
               <div className="form__action">
-                <Link className="btn btn--dark" to="/profile">
+                <Link className="btn btn--dark" to="/">
                   Cancel
                 </Link>
                 <button className="btn btn--main" type="submit">

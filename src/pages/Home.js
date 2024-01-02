@@ -11,7 +11,7 @@ const Home = () => {
     useEffect(() => {
       const fetchHomeData = async () => {
         try{
-          const response=await fetch('http://127.0.0.1:8000/api/homeAPI/')
+          const response=await fetch('https://tanvirpythonanywhere.pythonanywhere.com/api/homeAPI/')
           const responseData=await response.json()
           
           setHomeData(responseData)

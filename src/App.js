@@ -18,6 +18,7 @@ import UpdateRoomForm from './pages/UpdateRoomForm';
 import UpdateUserProfile from './pages/UpdateUserProfile';
 import TopicsPage from './pages/TopicsPage';
 import ActivityPage from './pages/ActivitiesPage';
+import { SearchProvider } from './context/SearchContext';
 
 
 function App() {
@@ -60,34 +61,37 @@ function App() {
     <Router>
     <div className="App">
       <AuthProvider>
-      <Navbar/>
-      <Routes>
+        <SearchProvider>
+          <Navbar/>
+          <Routes>
 
-        <Route  element={<Home/>} path='/'/>
+            <Route  element={<Home/>} path='/'/>
 
-        <Route  element={<Room/>} path='/rooms/:roomId'/>
+            <Route  element={<Room/>} path='/rooms/:roomId'/>
 
-        <Route  element={<LoginPage/>} path='/login'/>
-        <Route  element={<Register/>} path='/register'/>
+            <Route  element={<LoginPage/>} path='/login'/>
+            <Route  element={<Register/>} path='/register'/>
 
-        <Route  element={<ProfilePage/>} path='/user-profile/:userId'/>
+            <Route  element={<ProfilePage/>} path='/user-profile/:userId'/>
 
-        {/* <Route  element={<MyRooms/>} path='/my_rooms'/> */}
+            {/* <Route  element={<MyRooms/>} path='/my_rooms'/> */}
 
-        <Route  element={<PrivateRoute component={<RoomForm/>} />} path='/create-room'/>
+            <Route  element={<PrivateRoute component={<RoomForm/>} />} path='/create-room'/>
 
-        <Route  element={<PrivateRoute component={<DeleteRoom/>} />}path='/delete-room/:roomId'/>
+            <Route  element={<PrivateRoute component={<DeleteRoom/>} />}path='/delete-room/:roomId'/>
 
-        <Route  element={<PrivateRoute component={<DeleteMessage/>} />} path='/delete-message/:messageId'/>
+            <Route  element={<PrivateRoute component={<DeleteMessage/>} />} path='/delete-message/:messageId'/>
 
-        <Route  element={<PrivateRoute component={<UpdateRoomForm/>} />} path='/update-room/:roomId'/>
-        
-        <Route  element={<PrivateRoute component={<UpdateUserProfile />} />} path='/update-user-profile'/>
+            <Route  element={<PrivateRoute component={<UpdateRoomForm/>} />} path='/update-room/:roomId'/>
+            
+            <Route  element={<PrivateRoute component={<UpdateUserProfile />} />} path='/update-user-profile'/>
 
-        <Route element={<TopicsPage />} path='/topics-page' />
+            <Route element={<TopicsPage />} path='/topics-page' />
 
-        <Route element={<ActivityPage />} path='/activities-page' />
-      </Routes>
+            <Route element={<ActivityPage />} path='/activities-page' />
+          </Routes>
+        </SearchProvider>
+      
       </AuthProvider>
     </div>
     </Router>

@@ -24,7 +24,7 @@ const Register = () => {
 
     try {
         console.log('formData ',formData)
-      const response = await fetch('http://127.0.0.1:8000/api/register-userAPI/', {
+      const response = await fetch('https://tanvirpythonanywhere.pythonanywhere.com/api/register-userAPI/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

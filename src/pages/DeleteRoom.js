@@ -13,7 +13,7 @@ const DeleteRoom = () => {
     e.preventDefault();
 
     try {
-      const response = await fetch(`http://127.0.0.1:8000/api/delete-roomAPI/${roomId}`, {
+      const response = await fetch(`https://tanvirpythonanywhere.pythonanywhere.com/api/delete-roomAPI/${roomId}`, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',

@@ -1,7 +1,10 @@
 import React, { useState, useContext} from 'react';
 import AuthContext from '../context/AuthContext';
+import { Navigate, useNavigate , Link} from "react-router-dom";
 
 const RoomForm = () => {
+
+  const history =useNavigate()
     let {authTokens}=useContext(AuthContext) 
 
   // State to manage form data
@@ -45,7 +48,7 @@ const RoomForm = () => {
       
   
       // Send a POST request to the Django API endpoint
-      const response = await fetch('http://127.0.0.1:8000/api/create-roomAPI/', {
+      const response = await fetch('https://tanvirpythonanywhere.pythonanywhere.com/api/create-roomAPI/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -66,6 +69,8 @@ const RoomForm = () => {
       // Assuming the response contains a success message
       const responseData = await response.json();
       console.log('Room created successfully:', responseData.message);
+      alert('Room created successfully');
+      history('/')
   
       // Optionally handle additional logic or UI updates after room creation
   
@@ -81,7 +86,7 @@ const RoomForm = () => {
         <div className="layout__box">
           <div className="layout__boxHeader">
             <div className="layout__boxTitle">
-              <a href='/'>
+              <Link to='/'>
                 <svg
                   version="1.1"
                   xmlns="http://www.w3.org/2000/svg"
@@ -92,7 +97,7 @@ const RoomForm = () => {
                   <title>arrow-left</title>
                   <path d="M13.723 2.286l-13.723 13.714 13.719 13.714 1.616-1.611-10.96-10.96h27.625v-2.286h-27.625l10.965-10.965-1.616-1.607z"></path>
                 </svg>
-              </a>
+              </Link>
               <h3>Create/Update Study Room</h3>
             </div>
           </div>

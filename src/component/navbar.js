@@ -1,17 +1,38 @@
 import React,{useContext} from 'react';
 import { Link } from 'react-router-dom';
 import AuthContext from '../context/AuthContext'
+import avatarImage from '../images/avatar.svg'
+import logoImage from '../images/logo.svg'
+
+import { useSearch } from '../context/SearchContext';
 
 const Header = () => {
   let {user,logoutUser} = useContext(AuthContext)
   console.log("user",user)
+
+  const { searchQuery, updateSearchQuery } = useSearch();
+
+  const handleKeyPress = (e) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault()
+    }
+  };
+
+  const handleSearchChange = (e) => {
+    e.preventDefault()
+    updateSearchQuery(e.target.value);
+  };
+
+
   return (
     <header className="header header--loggedIn">
       <div className="container">
+        <div onClick={() => updateSearchQuery('')}>
         <Link to="/" className="header__logo">
-          <img src="src\logo.svg" alt="Logo" />
+          <img src={logoImage} alt="Logo" />
           <h1>StudyBuddy</h1>
         </Link>
+        </div>
         <form className="header__search">
           <label>
             <svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
@@ -20,7 +41,12 @@ const Header = () => {
                 d="M32 30.586l-10.845-10.845c1.771-2.092 2.845-4.791 2.845-7.741 0-6.617-5.383-12-12-12s-12 5.383-12 12c0 6.617 5.383 12 12 12 2.949 0 5.649-1.074 7.741-2.845l10.845 10.845 1.414-1.414zM12 22c-5.514 0-10-4.486-10-10s4.486-10 10-10c5.514 0 10 4.486 10 10s-4.486 10-10 10z"
               ></path>
             </svg>
-            <input placeholder="Search for rooms..." />
+            <input
+              placeholder="Search for rooms..."
+              value={searchQuery}
+              onKeyPress={handleKeyPress}
+              onChange={handleSearchChange}
+            />
           </label>
         </form>
         <nav className="header__menu">
@@ -48,7 +74,7 @@ const Header = () => {
             <div className="header__user">
             <Link to={`/user-profile/${user.user_id}`}>
               <div className="avatar avatar--medium active">
-                <img src="https://randomuser.me/api/portraits/men/37.jpg" alt="User Avatar" />
+                <img src={avatarImage} alt="User Avatar" />
               </div>
               {/* <p>
                 John Doe <span>@john_doe</span>
@@ -65,7 +91,7 @@ const Header = () => {
             </div>
           ): (
             <Link to={`/login`}>
-                <img src="{% static 'images/avatar.svg' %}" />
+                <img src={avatarImage} />
                 <p>Login 
                 {user && <p> Hello {user.username}</p>}
                 </p>

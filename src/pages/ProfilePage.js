@@ -5,6 +5,7 @@ import Topics from "../component/topics";
 import Activities from "../component/Activities";
 import ProfileRoomList from '../component/ProfileRoomList';
 import AuthContext from '../context/AuthContext';
+import avatarImage from '../images/avatar.svg'
 
 const UserProfile = () => {
   let {user} = useContext(AuthContext)
@@ -18,7 +19,7 @@ const UserProfile = () => {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        let response = await fetch(`http://127.0.0.1:8000/api/user-profileAPI/${userId}`)
+        let response = await fetch(`https://tanvirpythonanywhere.pythonanywhere.com/api/user-profileAPI/${userId}`)
         let user= await response.json()
         console.log(user)
         setUserData(user)
@@ -30,9 +31,8 @@ const UserProfile = () => {
     fetchUser();
   },[userId])
 
-  const isEdit=user && user.user_id==userId
-  console.log(" isEdit ",isEdit," user.user_id ",user.user_id," userId ",userId)
-
+  const isEdit=user && user.user_id && user.user_id==userId
+  
   if (!userData) {
     // Render a loading state or spinner while waiting for data
     return <div>Loading...</div>;
@@ -49,13 +49,14 @@ const UserProfile = () => {
           <div className="profile">
             <div className="profile__avatar">
               <div className="avatar avatar--large active">
-                <img src="https://randomuser.me/api/portraits/men/11.jpg" alt="User Avatar" />
+                <img src={avatarImage} alt="User Avatar" />
               </div>
             </div>
             <div className="profile__info">
               <h3>{userData.user.name} </h3>
+              <div>
               <p>@{userData.user.username}</p>
-
+              </div>
               {isEdit && (
                 <>
                 <Link to="/update-user-profile" className="btn btn--main btn--pill">
@@ -67,9 +68,11 @@ const UserProfile = () => {
             </div>
             <div className="profile__about">
               <h3>About</h3>
+              <div>
               <p>
                 {userData.user.bio}
               </p>
+              </div>
             </div>
           </div>
 

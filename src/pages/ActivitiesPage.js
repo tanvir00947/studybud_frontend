@@ -2,6 +2,7 @@ import React, { useEffect, useState,useContext } from 'react';
 import { formatDistanceToNow } from 'date-fns';
 import { Link } from 'react-router-dom';
 import AuthContext from '../context/AuthContext';
+import avatarImage from '../images/avatar.svg'
 
 const ActivityPage = () => {
   const [activities, setActivities] = useState([]);
@@ -11,7 +12,7 @@ const ActivityPage = () => {
   useEffect(() => {
     const fetchActivities = async () => {
       try {
-        const response = await fetch('http://127.0.0.1:8000/api/messages/');
+        const response = await fetch('https://tanvirpythonanywhere.pythonanywhere.com/api/messages/');
         if (response.ok) {
           const data = await response.json();
           setActivities(data);
@@ -50,7 +51,7 @@ const ActivityPage = () => {
                 <div className="activities__boxHeader roomListRoom__header">
                   <Link to={`/user-profile/${activity.user}`} className="roomListRoom__author">
                     <div className={`avatar avatar--small ${activity.user_username === 'admin' ? 'active' : ''}`}>
-                      <img src={activity.user_avatar} alt="user-avatar" />
+                      <img src={avatarImage} alt="user-avatar" />
                     </div>
                     <p>
                       @{activity.user_username}

@@ -2,12 +2,40 @@ import React, { useEffect, useState,useContext } from 'react';
 import { formatDistanceToNow } from 'date-fns';
 import { Link } from 'react-router-dom';
 import AuthContext from '../context/AuthContext';
+import avatarImage from '../images/avatar.svg'
 
 
 const RoomConversation = ({roomData}) => {
 
   const { user,authTokens } = useContext(AuthContext);
 
+  const [messages,setMessages] = useState(roomData.room_messages)
+
+  const [message_Sent,setMessage_Sent] = useState();
+
+  const [messageFormData, setMessageFormData] = useState({
+    body: '',
+  });
+
+  useEffect(() => {
+    const fetchMessages = async () => {
+      try{
+        let messagesResponse = await fetch(`https://tanvirpythonanywhere.pythonanywhere.com/api/room_messages/${roomData.id}/`);
+        let messages_json = await messagesResponse.json();
+
+        console.log('messages :', messages_json);
+        setMessages(messages_json);
+      }catch(error){
+        console.log('Error fetching messages:',error)
+      }
+    };
+    fetchMessages();
+
+    return () => {
+            setMessages(null);
+          };
+
+  },[roomData,message_Sent])
   
 
   // const [hostData, setHostData] = useState(null);
@@ -67,9 +95,7 @@ const RoomConversation = ({roomData}) => {
   
 
   // State to manage message form data
-  const [messageFormData, setMessageFormData] = useState({
-    body: '',
-  });
+  
 
   // Handle message input changes
   const handleMessageChange = (e) => {
@@ -106,7 +132,7 @@ const RoomConversation = ({roomData}) => {
 
       console.log('Creating message with data:', messageData);
       // Send a POST request to the Django API endpoint for sending messages
-      const response = await fetch(`http://127.0.0.1:8000/api/room_create_message/${roomData.id}/`, {
+      const response = await fetch(`https://tanvirpythonanywhere.pythonanywhere.com/api/room_create_message/${roomData.id}/`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -124,7 +150,8 @@ const RoomConversation = ({roomData}) => {
       // Assuming the response contains the sent message data
       const sentMessage = await response.json();
       console.log('Message sent successfully:', sentMessage);
-      window.location.reload();
+      setMessage_Sent(sentMessage)
+      //window.location.reload();
 
       // Optionally handle additional logic or UI updates after message sending
 
@@ -137,7 +164,7 @@ const RoomConversation = ({roomData}) => {
 
   
 
-  if (!roomData) {
+  if (!roomData || !messages) {
     // You can choose to render a loading indicator or a message here
     return <div>Loading...</div>;
   }
@@ -212,7 +239,7 @@ const RoomConversation = ({roomData}) => {
             <p>Hosted By</p>
             <Link to={`/user-profile/${roomData.host}`} className="room__author">
               <div className="avatar avatar--small">
-                <img src="https://randomuser.me/api/portraits/men/37.jpg" alt="Host Avatar" />
+                <img src={avatarImage} alt="Host Avatar" />
               </div>
               <span>{roomData.host_username} </span>
             </Link>
@@ -225,13 +252,13 @@ const RoomConversation = ({roomData}) => {
 
         <div className="room__conversation">
           <div className="threads scroll">
-            {roomData.room_messages.map((message) =>
+            {messages.map((message) =>
               <div key={message.id} className="thread">
               <div className="thread__top">
                 <div className="thread__author">
                   <Link to={`/user-profile/${message.user}`} className="thread__authorInfo">
                     <div className="avatar avatar--small">
-                      <img src="https://randomuser.me/api/portraits/men/37.jpg" alt="User Avatar" />
+                      <img src={avatarImage} alt="User Avatar" />
                     </div>
                     <span>@{message.user_username} </span>
                   </Link>

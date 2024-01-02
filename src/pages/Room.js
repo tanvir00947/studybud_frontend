@@ -12,7 +12,7 @@ const Room = () => {
   useEffect(() => {
     const fetchRoom = async () => {
       try {
-        let response = await fetch(`http://127.0.0.1:8000/api/roomAPI/${roomId}`);
+        let response = await fetch(`https://tanvirpythonanywhere.pythonanywhere.com/api/roomAPI/${roomId}`);
         let room = await response.json();
         console.log(room)
         setRoomData(room);
